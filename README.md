@@ -5,3 +5,6 @@ Major Studio 2 Spring 2017
 
 #### Exercise 1 [Updated Mar.14]
 * [Concept Development](https://github.com/nancyzhao888/thesis/blob/master/writing/conceptDevelopment.md)
+
+#### Exercise 2 
+* [Design Development](https://github.com/nancyzhao888/thesis/blob/master/writing/designDevelopment.md)
