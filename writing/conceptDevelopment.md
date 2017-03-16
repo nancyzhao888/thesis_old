@@ -41,3 +41,20 @@
 * Pick case study titles (eg.20) that have easier access to their international touring data to create a prototype;
 * Approach producers / licensing companies with the prototype to explain what the goal of the project is and request data support.
 
+#### Variables
+On Broadway:
+* Show Title
+* Location: Venue / City
+* Week
+* Gross (as indicator of success on Broadway)
+
+Worldwide:
+* Show Title
+* Location: Venue / City
+* Week
+* Version: English / Local
+
+Filters:
+* Genre
+* Adaptation
+* Gender of Leading Cast
