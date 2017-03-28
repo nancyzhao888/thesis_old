@@ -3,6 +3,13 @@
 ## Topic
 * Broadway is no longer contained within just the 12 blocks and 40 theatres in New York. It has become a "brand" that is well-known and exported across the entire world.
 
+## Related Work
+* Existing work on this topic is very limited and generally ineffective – look into concert touring examples.
+* Some visualizations cover reasonably sized datasets but lack any type of fluid interactivity. Views are static and the level of granularity in most of the views does not allow interesting trends to emerge. 
+* Some visualizations focus on a hub-and-spoke type visualization. Although geographically accurate, these visualizations emphasize an uninteresting part of the data. Users are not interested in the paths travelled by artists between venues. (This likely is more reflective of flight paths and highway locations.) 
+* No visualizations online allowed users to filter by a time period in a fluid manner. 
+* No visualizations that we found online attempt to visualize theatre touring data that I aggregate and visualize in this project – not domestically let alone internationally. 
+
 ## Goals
 * Understanding **global distribution** | _geospatial analysis_
   * When was a show on Broadway?
@@ -25,7 +32,6 @@
   * Understanding the competitive landscape; popularity of titles
 * Authors
   * Understanding lifeline of his/her work
-
 
 ## Evidence and Data
 #### Data Overview
