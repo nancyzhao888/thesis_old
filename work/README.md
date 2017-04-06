@@ -1,5 +1,12 @@
 [Preview](https://github.com/nancyzhao888/thesis/blob/master/work/test/preview.png)
 
+### Data Collection
+#### Wicked
+* Broadway & world touring weekly data: Oct. 2003 - Feb. 2017
+
+#### Ghost
+* Broadway & world touring weekly data: June 2011 - Feb. 2017
+
 ### Data Structure
 ```javascript
 {
