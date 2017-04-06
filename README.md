@@ -1,7 +1,7 @@
 # thesis
 Major Studio 2 Spring 2017
 
-### Mapping Broadway on the Move
+### Musical Theatre: Life Beyond Broadway
 Broadway musical theatre is not a ephemeral and New York local phenomenon. It is a powerful brand, and a form of cultural export, which through international touring and international productions, has created a global network of audience. However, while eyes and ears are on the 40 theatres on the Great White Way, the theatre industry has hardly examined this  mechanisms of international business and Broadway’s cultural impact.
 
 This visualization uses weekly Broadway performance data from the Broadway League and international touring data from [...] to follow the trajectories of [how many] Broadway musical titles through [time] and across continents to see the dynamics of cultural transmission, and more importantly to understand the motivation behind this global distribution. The areas of questions I aim to address are -
