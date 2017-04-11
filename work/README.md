@@ -7,7 +7,7 @@
 #### Ghost
 * Broadway & world touring weekly data: June 2011 - Feb. 2017
 
-### Data Structure
+### Data Structure For Tree Ring
 ```javascript
 {
   "Ghost": {
@@ -45,5 +45,26 @@
     ],
   "Version": "English"
   }
+}
+```
+
+### Data Structure For Force Layout
+```javascript
+{
+  "nodes": [
+    {"id": "Ghost", 
+        "country": null,
+        "group": 1},
+    {"id": "Wicked", 
+        "country": null,
+        "group": 1},
+    {"id": "New York", 
+        "country": "USA",
+        "group": 0}
+    ],
+  "links": [
+    {"source": "Ghost", "target": "New York", "value": 23},
+    {"source": "Wicked", "target": "New York", "value": 695},
+  ]
 }
 ```
