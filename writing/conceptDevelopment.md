@@ -5,10 +5,18 @@
 
 ## Related Work
 * Existing work on this topic is very limited and generally ineffective – look into concert touring examples.
+[![](https://github.com/nancyzhao888/thesis/blob/master/writing/setFM.png)](http://www.setlist.fm/stats/concert-map/bruce-springsteen-2bd6dcce.html)
 * Some visualizations cover reasonably sized datasets but lack any type of fluid interactivity. Views are static and the level of granularity in most of the views does not allow interesting trends to emerge. 
+[![](https://github.com/nancyzhao888/thesis/blob/master/writing/rollingStone.png)](http://rollingstones.vizzuality.com/#/)
 * Some visualizations focus on a hub-and-spoke type visualization. Although geographically accurate, these visualizations emphasize an uninteresting part of the data. Users are not interested in the paths travelled by artists between venues. (This likely is more reflective of flight paths and highway locations.) 
 * No visualizations online allowed users to filter by a time period in a fluid manner. 
-* No visualizations that we found online attempt to visualize theatre touring data that I aggregate and visualize in this project – not domestically let alone internationally. 
+* No visualizations that was found online attempt to visualize theatre touring data that I aggregate and visualize in this project – not domestically let alone internationally. 
+
+## Significance
+* Contribute to creating a new database that amalgamate world touring data for Broadway musicals.
+* ......
+
+## Design Study
 
 ## Goals
 * Understanding **global distribution** | _geospatial analysis_
