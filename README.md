@@ -23,5 +23,8 @@ The research aims to discover a better way for producers and authors of Broadway
 #### Exercise 1 [Updated Mar.14]
 * [Concept Development](https://github.com/nancyzhao888/thesis/blob/master/writing/conceptDevelopment.md)
 
-#### Exercise 2 [Updated Mar.16]
+#### Exercise 2 [Updated Apr.6]
 * [Design Development](https://github.com/nancyzhao888/thesis/blob/master/visualization/sketches/thesisApr.pdf)
+
+#### Exercise 3 [Updated Apr.13]
+* [Design Development](https://github.com/nancyzhao888/thesis/blob/master/visualization/writing/draft.pdf)
