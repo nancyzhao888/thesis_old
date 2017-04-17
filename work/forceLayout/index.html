@@ -22,6 +22,7 @@ var svg = d3.select("svg"),
     height = +svg.attr("height");
 
 var color = d3.scaleOrdinal(d3.schemeCategory20);
+var linkedByIndex = {};
 
 var simulation = d3.forceSimulation()
     .force("link", d3.forceLink().id(function(d) { return d.id; }).distance(200))
@@ -30,7 +31,7 @@ var simulation = d3.forceSimulation()
 
 d3.json("showAll.json", function(error, graph) {
   if (error) throw error;
-
+  
   var link = svg.append("g")
       .attr("class", "links")
     .selectAll("line")
@@ -44,15 +45,38 @@ d3.json("showAll.json", function(error, graph) {
     .data(graph.nodes)
     .enter().append("circle")
       .attr("r", 5)
-      .attr("fill", function(d) { return color(d.country); });
+      .attr("fill", function(d) { return color(d.country); })
+      .on("mouseover", fade(0.1))
+      .on("mouseout", fade(1));
     //   .call(d3.drag()
     //       .on("start", dragstarted)
     //       .on("drag", dragged)
     //       .on("end", dragended));
+  
+  graph.links.forEach(function(d) {
+      linkedByIndex[d.source.index + "," + d.target.index] = 1;
+    });
 
+    
+  function neighboring(a, b) {
+      return a.index == b.index || linkedByIndex[a.index + "," + b.index];
+    }
+    
+  function fade(opacity) {
+  return function(d) {
+      link.style("opacity", function(o) {
+     return o.source === d || o.target === d ? 1 : opacity;
+      });
+      node.style("opacity", function(o) {
+        return neighboring(d, o) ? 1 : opacity;
+        });
+    }
+  }
+
+        
   node.append("title")
       .text(function(d) { return d.id; });
-
+         
   simulation
       .nodes(graph.nodes)
       .on("tick", ticked);
@@ -68,8 +92,22 @@ d3.json("showAll.json", function(error, graph) {
         .attr("y2", function(d) { return d.target.y; });
 
     node
-        .attr("cx", function(d) { return d.x; })
-        .attr("cy", function(d) { return d.y; });
+        .attr("cx", function(d) { 
+          if(d.n > 2) {
+          var angle = ((d.n-2) / (41/2)) * Math.PI; // Calculate the angle at which the element will be placed.
+          var x = (200 * Math.cos(angle)) + (width/2);
+          return d.x = x;
+          }
+          else return d.x;
+        })
+        .attr("cy", function(d) { 
+          if(d.n > 2) {
+          var angle = ((d.n-2) / (41/2)) * Math.PI; // Calculate the angle at which the element will be placed.
+          var y = (200 * Math.sin(angle)) + (height/2);
+          return d.y = y;
+          }
+          else return d.y;
+        });
   }
 });
 
