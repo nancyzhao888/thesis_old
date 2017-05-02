@@ -38,11 +38,11 @@ var simulation = d3.forceSimulation()
     .force("center", d3.forceCenter(width / 2, height / 2));
     
 var dateScale = d3.scaleTime().domain([new Date("01-01"), new Date("12-31")]).range([0,600]);
-var svgTime = d3.select("body").append("svg").attr("width",600).attr("height",300);
-
-d3.json("showMatilda.json", function(error, graph) {
+var svgTime = d3.select("body").append("svg").attr("width",600).attr("height",300).style('display','none').attr("class", "svg_02");
+var graph;
+d3.json("showMatilda.json", function(error, _graph) {
   if (error) throw error;
-  
+    graph = _graph;
   var link = svg.append("g")
       .attr("class", "links")
     .selectAll("line")
@@ -72,7 +72,108 @@ d3.json("showMatilda.json", function(error, graph) {
       
     // }
     
-    var band_arr = _.where(graph.links,{"source": "Matilda"});
+    // console.log(graph.links)
+    // var band_arr = _.where(graph.links,{"source": "Matilda"});
+    // var band_children_arr = [];
+    // band_arr.forEach(function(d){
+    //   d["children"].forEach(function(di){
+    //       band_children_arr.push(di)
+    //   })
+    // } )
+    
+    
+    // var final_feed_band_arr = _.groupBy(band_children_arr,"year");
+    // var final_band_arr = [];
+    // var obj_keys = Object.keys(final_feed_band_arr);
+    //   obj_keys.forEach(function(d){
+    //     final_band_arr.push(  final_feed_band_arr[d]  );
+    //   });
+    // console.log(final_band_arr);
+    
+    
+    
+    // var band = svgTime.selectAll("g")
+    //   .data(final_band_arr)
+    //   .enter()
+    //   .append("g")
+    //   .attr("transform", function(d,i,whole) { 
+        
+    //     console.log(d);
+    //   return "translate(0," + (i * 20) + ")"; } )
+    //   .attr('class',function(d){
+    //     return 'Matilda_'  + d[0].year;
+    //   })
+      
+    //   obj_keys.forEach(function(d,i){
+    //     d3.select('.Matilda_'+ d)
+    //     .selectAll('rect')
+    //     .data(final_band_arr[i])
+    //     .enter()
+    //     .append('rect')
+    //     .attr('width',function(d){
+    //       return ((new Date(d.end) - new Date(d.start))  /  (3600*24 *1000));
+    //     })
+    //     .attr('height',10)
+    //     .attr('x',function(d){
+    //       // return dateScale(new Date(d.start))
+    //       return (new Date(d.start) - new Date(d.year + '-01-01'))   /  (3600*24 *1000)
+    //     })
+    //     .style('fill', '#000000');
+        
+    //   })
+    
+    // band.selectAll("rect")
+    // .data( function(d) { 
+    //   console.log(d)
+    //   d.forEach(function(item){
+    //     return item;
+    //   });
+    //   })
+    // .enter()
+    // .append("rect")
+    // .attr("width", function(d) { console.log(d) ; } )
+    // .attr("height",10)
+    // .attr("x", function(d) { return dateScale(new Date(d.start));} )
+    // .style("fill", function () {return "#000000"});
+  
+  
+    
+    function neighboring(a, b) {
+    return graph.links.some(function(d) {
+      return (d.source === a && d.target === b)
+      || (d.source === b && d.target === a);
+    });
+  }
+
+  function fade(opacity) {
+    return function(d) {
+      link.style("opacity", function(o) {
+    return o.source === d || o.target === d ? 1 : opacity;
+      });
+      node.style("opacity", function(o) {
+        if(o==d){
+          return 1;
+        } else {
+          return neighboring(d, o) ? 1 : opacity;  
+        }
+      });
+    }
+  }
+  
+  graph.links.forEach(function(d){
+    d.source_name = d.source;
+    console.log(d.source)
+  })
+  
+function clicked(d){
+  d3.select('.svg_01').style('display','none');
+  d3.select('.svg_02').style('display','inline');
+  
+    var name = d.id
+    console.log(name)
+  
+    var band_arr = _.where(graph.links,{"source_name": name});
+    console.log(band_arr)
     var band_children_arr = [];
     band_arr.forEach(function(d){
       d["children"].forEach(function(di){
@@ -100,11 +201,11 @@ d3.json("showMatilda.json", function(error, graph) {
         console.log(d);
       return "translate(0," + (i * 20) + ")"; } )
       .attr('class',function(d){
-        return 'Matilda_'  + d[0].year;
+        return 'show_'  + d[0].year;
       })
       
       obj_keys.forEach(function(d,i){
-        d3.select('.Matilda_'+ d)
+        d3.select('.show_'+ d)
         .selectAll('rect')
         .data(final_band_arr[i])
         .enter()
@@ -120,46 +221,6 @@ d3.json("showMatilda.json", function(error, graph) {
         .style('fill', '#000000');
         
       })
-    
-    // band.selectAll("rect")
-    // .data( function(d) { 
-    //   console.log(d)
-    //   d.forEach(function(item){
-    //     return item;
-    //   });
-    //   })
-    // .enter()
-    // .append("rect")
-    // .attr("width", function(d) { console.log(d) ; } )
-    // .attr("height",10)
-    // .attr("x", function(d) { return dateScale(new Date(d.start));} )
-    // .style("fill", function () {return "#000000"});
-    
-  
-    
-    function neighboring(a, b) {
-    return graph.links.some(function(d) {
-      return (d.source === a && d.target === b)
-      || (d.source === b && d.target === a);
-    });
-  }
-
-  function fade(opacity) {
-    return function(d) {
-      link.style("opacity", function(o) {
-    return o.source === d || o.target === d ? 1 : opacity;
-      });
-      node.style("opacity", function(o) {
-        if(o==d){
-          return 1;
-        } else {
-          return neighboring(d, o) ? 1 : opacity;  
-        }
-      });
-    }
-  }
-function clicked(){
-  d3.select('.svg_01').style('display','none');
 }
         
   node.append("title")
