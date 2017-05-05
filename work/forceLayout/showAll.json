@@ -282,12 +282,58 @@
     {"source": "Wicked", "target": "Tokyo", "value": 185},
     {"source": "Matilda", 
         "target": "New York",
+        "children": [
+        {"year": "2013",
+        "start": "2013-04-11",
+        "end":"2013-12-31"},
+        {"year": "2014",
+        "start": "2014-01-01",
+        "end":"2014-12-31"},
+        {"year": "2015",
+        "start": "2015-01-01",
+        "end":"2015-12-31"}
+        ],
         "value": 200},
     {"source": "Matilda", 
-        "target": "Sydney", 
+        "target": "Sydney",
+        "children": [
+        {"year": "2015",
+        "start": "2015-08-20",
+        "end":"2015-12-31"},
+        {"year": "2016",
+        "start": "2016-01-01",
+        "end":"2016-02-28"}
+        ],
         "value": 28},
-    {"source": "Matilda", "target": "Melbourne", "value": 35},
-    {"source": "Matilda", "target": "Brisbane", "value": 12},
-    {"source": "Matilda", "target": "Toronto", "value": 26}
+    {"source": "Matilda", 
+        "target": "Melbourne", 
+        "children": [
+        {"year": "2016",
+        "start": "2016-03-13",
+        "end":"2016-11-11"}
+        ],
+        "value": 35},
+    {"source": "Matilda", 
+        "target": "Brisbane", 
+        "children": [
+        {"year": "2016",
+        "start": "2016-11-25",
+        "end":"2016-12-31"},
+        {"year": "2017",
+        "start": "2017-01-01",
+        "end":"2017-02-12"}
+        ],
+        "value": 12},
+    {"source": "Matilda", 
+        "target": "Toronto", 
+        "children": [
+        {"year": "2016",
+        "start": "2016-07-05",
+        "end":"2016-12-31"},
+        {"year": "2017",
+        "start": "2017-01-01",
+        "end":"2017-01-07"}
+        ],
+        "value": 26}
   ]
 }
