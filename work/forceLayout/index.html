@@ -218,7 +218,7 @@ function clicked(d){
     var final_band_arr = [];
     var obj_keys = Object.keys(final_feed_band_arr);
       obj_keys.forEach(function(d){
-        final_band_arr.push(  final_feed_band_arr[d]  );
+        final_band_arr.push(final_feed_band_arr[d]);
       });
     //console.log(final_band_arr);
   
@@ -229,12 +229,27 @@ function clicked(d){
       .append("g")
       .attr('class', 'timeline')
       .attr("transform", function(d,i,whole) { 
-       //console.log(d);
-      return "translate(50," + (i * 20) + ")"; } )
+        console.log(final_band_arr[i]);
+       if (i == 0) {
+      return "translate(50," + i + ")"; } 
+        else if (i == 1) {
+          return "translate(50," + (i* 10 + final_band_arr[i-1].length*10) + ")";
+        } else if (i == 2) {
+          return "translate(50," + (i* 10 + final_band_arr[i-2].length*10 + final_band_arr[i-1].length*10) + ")"
+        } else if (i == 3) {
+          return "translate(50," + (i * 10 + final_band_arr[i-3].length*10 + final_band_arr[i-2].length*10 + final_band_arr[i-1].length*10 + 5) + ")"
+        } else if (i == 4) {
+          return "translate(50," + (i * 10 + final_band_arr[i-4].length*10 + final_band_arr[i-3].length*10 + final_band_arr[i-2].length*10 + final_band_arr[i-1].length*10 + 5) + ")" 
+        } else if (i == 5) {
+          return "translate(50," + (i * 10 + final_band_arr[i-5].length*10 + final_band_arr[i-4].length*10 + final_band_arr[i-3].length*10 + [i-2].length*10 + final_band_arr[i-1].length*10 + 5) + ")"
+        };
+        })
+      // .style('fill', "#FEFEFA")
       .attr('class',function(d){
         //console.log(d)
         return name + "_"  + d[0].year;
-      })
+      }
+      )
       
       obj_keys.forEach(function(d,i){
         d3.select("." + name + "_" + d)
@@ -250,12 +265,12 @@ function clicked(d){
           //console.log(k)
           if (final_band_arr[i].length>1) {
             //if(Math.max(final_band_arr[i][k]["start"], final_band_arr[i][k+1]["start"]) < Math.min(final_band_arr[i][k]["end"], final_band_arr[i][k+1]["end"])) {
-              return 12/(final_band_arr[i].length);
-            } else return 12;
+              return 10;//5/(final_band_arr[i].length);
+            } else return 10;
         })
         .attr('transform', function(d, k){
           if (final_band_arr[i].length>1) {
-            return "translate(0," + (k * 12/(final_band_arr[i].length))+ ")"; } 
+            return "translate(0," + (k * 10) + ")"; } //12/(final_band_arr[i].length)
         }) 
         .attr('x',function(d){
           // return dateScale(new Date(d.start))
