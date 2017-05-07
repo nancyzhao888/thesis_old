@@ -63,6 +63,11 @@ body {
     margin-right: auto;
 }
 
+.yearLabel {
+    font-family: Roboto, sans-serif;
+    font-size: 11px;
+}
+
 .footer {
     position: fixed;
     bottom: 0;
@@ -221,7 +226,7 @@ function clicked(d){
         final_band_arr.push(final_feed_band_arr[d]);
       });
     //console.log(final_band_arr);
-  
+    var count = 0
     
     var band = svgTime.selectAll("g")
       .data(final_band_arr)
@@ -229,21 +234,15 @@ function clicked(d){
       .append("g")
       .attr('class', 'timeline')
       .attr("transform", function(d,i,whole) { 
-        console.log(final_band_arr[i]);
+        //console.log(final_band_arr[i]);
        if (i == 0) {
-      return "translate(50," + i + ")"; } 
-        else if (i == 1) {
-          return "translate(50," + (i* 10 + final_band_arr[i-1].length*10) + ")";
-        } else if (i == 2) {
-          return "translate(50," + (i* 10 + final_band_arr[i-2].length*10 + final_band_arr[i-1].length*10) + ")"
-        } else if (i == 3) {
-          return "translate(50," + (i * 10 + final_band_arr[i-3].length*10 + final_band_arr[i-2].length*10 + final_band_arr[i-1].length*10 + 5) + ")"
-        } else if (i == 4) {
-          return "translate(50," + (i * 10 + final_band_arr[i-4].length*10 + final_band_arr[i-3].length*10 + final_band_arr[i-2].length*10 + final_band_arr[i-1].length*10 + 5) + ")" 
-        } else if (i == 5) {
-          return "translate(50," + (i * 10 + final_band_arr[i-5].length*10 + final_band_arr[i-4].length*10 + final_band_arr[i-3].length*10 + [i-2].length*10 + final_band_arr[i-1].length*10 + 5) + ")"
-        };
-        })
+      return "translate(50," + 0 + ")"; } 
+        else { 
+          count = count + final_band_arr[i-1].length*10 + 20
+          console.log(count)
+          return "translate(50," + count + ")"
+        }
+      })
       // .style('fill', "#FEFEFA")
       .attr('class',function(d){
         //console.log(d)
@@ -251,6 +250,24 @@ function clicked(d){
       }
       )
       
+      band.append("text")
+          .attr("x", 0)
+          .attr("y", 5)
+          .attr("dy", ".50em")
+          .text(function(d, i) { 
+            //console.log(d[0].year)
+            return d[0].year; })
+          .attr('class', 'yearLabel');
+          
+      band.append("line")
+          .attr("x1", 40)  //<<== change your code here
+          .attr("y1", 0)
+          .attr("x2", 40)  //<<== and here
+          .attr("y2", function(d) { return d.length * 10})
+          .style("stroke-width", 1)
+          .style("stroke", "black")
+          .style("fill", "none");
+        
       obj_keys.forEach(function(d,i){
         d3.select("." + name + "_" + d)
         .selectAll('rect')
@@ -263,27 +280,26 @@ function clicked(d){
         .attr('height', function(d, k){
           //console.log(d)
           //console.log(k)
-          if (final_band_arr[i].length>1) {
+          //if (final_band_arr[i].length>1) {
             //if(Math.max(final_band_arr[i][k]["start"], final_band_arr[i][k+1]["start"]) < Math.min(final_band_arr[i][k]["end"], final_band_arr[i][k+1]["end"])) {
               return 10;//5/(final_band_arr[i].length);
-            } else return 10;
+            //} else return 10;
         })
         .attr('transform', function(d, k){
           if (final_band_arr[i].length>1) {
-            return "translate(0," + (k * 10) + ")"; } //12/(final_band_arr[i].length)
-        }) 
+            return "translate(60," + (k * 10) + ")"; 
+        } else return "translate(60," + "0" + ")";})
         .attr('x',function(d){
           // return dateScale(new Date(d.start))
           return (new Date(d.start) - new Date(d.year + '-01-01'))   /  (3600*24 *500)
         })
-        //.attr("transform", function(d, i) { return "translate(0," + (i-1) * 10/final_band_arr[i].length + ")"; })
         .style('fill', "#5A7CC2")
         .style('stroke', '#FFFFFF')
+        .attr("class", "rect")
         .attr('rx', 5)
         .attr('ry', 5);
-        
-        //console.log(final_band_arr[i].length)
       })
+        
 }
         
   node.append("title")
