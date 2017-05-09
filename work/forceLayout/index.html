@@ -79,9 +79,12 @@ body {
 <div class="container">
   <div class="row">
       <div class="col-xs-12">
+        <svg height="30"></svg>
+      </div>
+      <div class="col-xs-12">
           <div class="title">
               The International Life of A Broadway Musical
-              <div class="col-xs-12" id="description">
+              <div class="col-xs-10 col-xs-offset-1" id="description">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
               <!--Show Subtitle/Description-->
               </div>
@@ -116,10 +119,11 @@ var margin = {
     left: 100
 };
 
-var height = 600;
-var width = 900;
-var vWidth = document.getElementById("visualization").offsetWidth;
-var xWidth = vWidth - margin.left - margin.right;
+var height = 640;
+var width = 960;
+var newWidth = document.getElementById('visualization').offsetWidth;
+
+console.log(newWidth)
 
 var svg = d3.select("#visualization")
             .append("svg")
@@ -127,14 +131,23 @@ var svg = d3.select("#visualization")
             .attr("width", width) //vWidth + 100
             .attr("height", height);
             //.style("transform", "translate(0px," + (-height-120) +"px)");
-            
+
+var svgInfo = d3.select("#visualization")
+    .append("svg")
+    .attr("width", 220)
+    .attr("height",640)
+    .style('display','none')
+    //.style("margin-left", margin.left + "px")
+    //.style("margin-right", margin.right + "px")
+    .attr("class", "svg_03");    
+    
 var svgTime = d3.select("#visualization")
     .append("svg")
-    .attr("width",900)
-    .attr("height",600)
+    .attr("width", 720)
+    .attr("height",640)
     .style('display','none')
-    .style("margin-left", margin.left + "px")
-    .style("margin-right", margin.right + "px")
+    //.style("margin-left", margin.left + "px")
+    //.style("margin-right", margin.right + "px")
     .attr("class", "svg_02");
     
 var graph;
@@ -197,21 +210,22 @@ d3.json("showMatilda.json", function(error, _graph) {
     }
   }
   
-  graph.links.forEach(function(d){
-    d.source_name = d.source;
-    //console.log(d.source)
-  })
+  // graph.links.forEach(function(d){
+  //   d.source_name = d.source;
+  //   //console.log(d.source)
+  // })
   
   function clicked(d){
     
     d3.select('.svg_01').style('display','none');
+    d3.select('.svg_03').style('display','inline');
     d3.select('.svg_02').style('display','inline');
     d3.select('button').style('display','none');
     
     var name = d.id
       //console.log(name)
     
-    var band_arr = _.where(graph.links,{"source_name": name});
+    var band_arr = _.where(graph.nodes,{"id": name});
       //console.log(band_arr)
     var band_children_arr = [];
     band_arr.forEach(function(d){
@@ -228,7 +242,7 @@ d3.json("showMatilda.json", function(error, _graph) {
         final_band_arr.push(final_feed_band_arr[d]);
       });
     //console.log(final_band_arr);
-    var count = 0
+    var count = 40
       
     var band = svgTime.selectAll("g")
         .data(final_band_arr)
@@ -238,11 +252,11 @@ d3.json("showMatilda.json", function(error, _graph) {
         .attr("transform", function(d,i,whole) { 
           //console.log(final_band_arr[i]);
          if (i == 0) {
-            return "translate(50," + 0 + ")"; } 
+            return "translate(40," + 40 + ")"; } 
             else { 
               count = count + final_band_arr[i-1].length*10 + 20
               console.log(count)
-              return "translate(50," + count + ")"
+              return "translate(40," + count + ")"
             }
           })
         // .style('fill', "#FEFEFA")
@@ -277,10 +291,12 @@ d3.json("showMatilda.json", function(error, _graph) {
             .data(final_band_arr[i])
             .enter()
             .append('rect')
-            .attr("width", 728)
+            .attr("width", 606.6666666)
             .attr("height", 10)
-            .style("fill", "#EEEEEE")
+            .style("fill", "#f3f3f3")
             .style("stroke", '#FFFFFF')
+            .attr('rx', 5)
+            .attr('ry', 5)
             .attr('transform', function(d, k){
               if (final_band_arr[i].length>1) {
                 return "translate(60," + (k * 10) + ")"; 
@@ -293,7 +309,7 @@ d3.json("showMatilda.json", function(error, _graph) {
             .enter()
             .append('rect')
             .attr('width',function(d){
-              return ((new Date(d.end) - new Date(d.start))  /  (3600*24 *500));
+              return ((new Date(d.end) - new Date(d.start))  /  (3600*24 * 600));
             })
             .attr('height', 10)
               //console.log(d)
@@ -309,14 +325,51 @@ d3.json("showMatilda.json", function(error, _graph) {
             } else return "translate(60," + "0" + ")";})
             .attr('x',function(d){
               // return dateScale(new Date(d.start))
-              return (new Date(d.start) - new Date(d.year + '-01-01'))   /  (3600*24 *500)
+              return (new Date(d.start) - new Date(d.year + '-01-01'))   /  (3600*24 * 600)
             })
-            .style('fill', "#5A7CC2")
+            .style('fill', function(d){
+              if (d.version == "Broadway") {
+                return "#CC99A5"
+              } else if (d.version == "English") {
+                return "#5A7CC2"
+              } else if (d.version == "Local") {
+                return "#ACBDE0"
+              }
+              
+            })
             .style('stroke', '#FFFFFF')
             .attr("class", "rect")
             .attr('rx', 5)
             .attr('ry', 5);
         })
+  
+  
+  var show = svgInfo.append('g')
+        .attr('class','image');
+      
+      show.append('circle')
+        .attr("cx", 130)
+        .attr("cy", 80)
+        .attr("r", 34)
+        .style("fill", "#CC99A5")
+        
+      show.append('image')
+        .attr("xlink:href", ("images/"+ name +".png"))
+        .attr("x", 100)
+        .attr("y", 50)
+        .attr("height", 60)
+        .attr("width", 60)
+      
+      show.append("text")
+          .attr("x", 130)
+          .attr("y", 140)
+          .text(name)
+          .style("font-family", "Roboto")
+          .style("font-size", "15px")
+          .style("fill", "black")
+          .attr("text-anchor", "middle");
+          //.style("text-transform", "uppercase");
+  
           
   }
         
