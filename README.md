@@ -3,7 +3,7 @@ Major Studio 2 Spring 2017
 
 ### The International Afterlife of Broadway Musicals
 
-[![](https://github.com/nancyzhao888/thesis/blob/master/work/broadway/preview.png)(https://nancyzhao888.github.io/thesis/work/broadway/)]
+[![](https://github.com/nancyzhao888/thesis/blob/master/work/broadway/preview.png)](https://nancyzhao888.github.io/thesis/work/broadway/)
 
 #### Abstract
 Broadway musical theatre is not a ephemeral and New York local phenomenon. It is a powerful brand, and a form of cultural export, which through international touring and international productions, has created a global network of audience. However, while eyes and ears are on the 40 theatres on the Great White Way, the theatre industry has hardly examined this mechanism of international business and Broadway’s cultural impact.
