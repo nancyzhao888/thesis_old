@@ -1,14 +1,14 @@
 # thesis
 Major Studio 2 Spring 2017
 
-### The International Afterlife of A Broadway Musical
+### The International Afterlife of Broadway Musicals
 
-![](https://github.com/nancyzhao888/thesis/blob/master/work/forceLayout/preview.png)
+[![](https://github.com/nancyzhao888/thesis/blob/master/work/broadway/preview.png)(https://nancyzhao888.github.io/thesis/work/broadway/)]
 
 #### Abstract
-Broadway musical theatre is not a ephemeral and New York local phenomenon. It is a powerful brand, and a form of cultural export, which through international touring and international productions, has created a global network of audience. However, while eyes and ears are on the 40 theatres on the Great White Way, the theatre industry has hardly examined this  mechanisms of international business and Broadway’s cultural impact.
+Broadway musical theatre is not a ephemeral and New York local phenomenon. It is a powerful brand, and a form of cultural export, which through international touring and international productions, has created a global network of audience. However, while eyes and ears are on the 40 theatres on the Great White Way, the theatre industry has hardly examined this mechanism of international business and Broadway’s cultural impact.
 
-This visualization uses weekly Broadway performance data from the Broadway League and international touring data from [...] to follow the trajectories of [how many] Broadway musical titles through [time] and across continents to see the dynamics of cultural transmission, and more importantly to understand the motivation behind this global distribution. The areas of questions I aim to address are -
+This visualization uses Broadway performance data from the Broadway League and international touring data from [...] to follow the trajectories of [how many] Broadway musical titles through [time] and across continents to see the dynamics of cultural transmission, and more importantly to understand the motivation behind this global distribution. The areas of questions I aim to address are -
 * Understanding **global distribution** 
   * When was a show on Broadway?
   * Where and when did it go after that?
