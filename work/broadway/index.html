@@ -182,7 +182,10 @@ body {
     <!--<div class = "col-md-1 col-md-offset-col-xs-1" id="sidebar2"></div>-->
   </div>
   <footer class="footer" id="footer">
-    <div class="container"></div>
+    <div class="container">
+      <img id="legend1" src="images/legend1.png" style='width: 70%'></img>
+      <img id="legend2" src="images/legend2.png" style='width: 70%' display="none"></img>
+    </div>
   </footer>
 </div>  
 <div id='overlay' class='col-md-12 col-xs-12' style='height: 800px'></div>
@@ -333,6 +336,8 @@ d3.json("showMatilda.json", function(error, _graph) {
     d3.select('#sidebar2').style('display','none');
     d3.select('.svg_03').style('display','inline');
     d3.select('.svg_02').style('display','inline');
+    d3.select('#legend1').style('display','none');
+    d3.select('#legend2').style('display','inline');
     
     d3.select(".filter").style('display','none')
     
@@ -505,6 +510,8 @@ d3.json("showMatilda.json", function(error, _graph) {
       d3.select('.svg_02').style('display','none').selectAll("*").remove();;
       d3.select('#sidebar1').style('display','inline');
       d3.select('#sidebar2').style('display','inline');
+      d3.select('#legend1').style('display','inline');
+      d3.select('#legend2').style('display','none');
       
     }
           
@@ -627,7 +634,7 @@ d3.json("showMatilda.json", function(error, _graph) {
           .attr("y", window.innerHeight/2 - 75)
           .text("Tony Award-winning")
           .attr("class", "labelText")
-          .style("fill", "#EFE0E4");
+          .style("fill", "#CC99A5");
       
       var labelR = d3.select(".sidebar2").append("g")
             
@@ -645,7 +652,7 @@ d3.json("showMatilda.json", function(error, _graph) {
           .attr("y", window.innerHeight/2 - 75)
           .text("No Tony Awards")
           .attr("class", "labelText")
-          .style("fill", "#EFE0E4")
+          .style("fill", "#CC99A5")
           .attr("text-anchor", "right");
       }
       
@@ -679,7 +686,6 @@ d3.json("showMatilda.json", function(error, _graph) {
       // simulation.nodes(graph.nodes);
       // simulation.force("link").links(graph.links);
       // simulation.alpha(1).restart();
-}
     }
   
 });

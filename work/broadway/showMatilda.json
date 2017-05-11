@@ -874,6 +874,11 @@
         "country": "Canada",
         "group": 0,
         "n": 51
+    },
+    {"id": "Hamburg", 
+        "country": "Germany",
+        "group": 0,
+        "n": 52
     }
   ],
   "links": [
