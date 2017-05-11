@@ -52,6 +52,15 @@ body {
     /*transform: translate(-1.6%);*/
 }
 
+.a {
+    text-transform: uppercase;
+    margin-left:10px;
+    font-size: 8px;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 2px 5px;
+}
+
 .b {
     text-transform: uppercase;
     margin-left:10px;
@@ -158,9 +167,9 @@ body {
   <div class="row">
       <div class="col-md-10 col-md-offset-1 col-xs-10 col-xs-offset-1">
           <div class="title">
-              The International Afterlife of A Broadway Musical
+              The International Afterlife of Broadway Musicals
               <div class="col-md-10 col-md-offset-1 col-xs-10 col-xs-offset-1" id="description">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                Follow Broadway musical titles through their lifetimes, their Broadway performances, and international touring across continents to explore the dynamics of cultural transmission and the motivation behind this global distribution.
               <!--Show Subtitle/Description-->
               </div>
           </div>
@@ -563,7 +572,7 @@ d3.json("showMatilda.json", function(error, _graph) {
     .append("div")
     .attr("class", "filter");
   
-  bOpt.html("<div title='....' class='b' id ='Adapt'>Source Material</div><div title='...' class='b' id='Genre'>Type</div><div title='...' class='b' id= 'Tonys'>Tony Awards</div><div title='....' class='b' id ='Olivier'>Oliver Awards</div><div title='...' class='b' id='Gender'>Lead Cast</div><div title='...' class='d' id='reset'>Reset</div>");
+  bOpt.html("<div class='a' id ='Group'>Group by</div><div title='....' class='b' id ='Adapt'>Source Material</div><div title='...' class='b' id='Genre'>Type</div><div title='...' class='b' id= 'Tonys'>Tony Awards</div><div title='....' class='b' id ='Olivier'>Oliver Awards</div><div title='...' class='b' id='Gender'>Lead Cast</div><div title='...' class='d' id='reset'>Reset</div>");
 
   d3.select('#Tonys')
     .on("click", clusterbyTonys);
