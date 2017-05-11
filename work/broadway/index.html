@@ -6,6 +6,12 @@ body {
     text-align: center;
 }
 
+.container.nopadding{
+  padding-left: 0;
+  padding-right:0;
+  margin: auto;
+}
+
 .links line {
   stroke: #999;
   stroke-opacity: 0.6;
@@ -41,7 +47,7 @@ body {
 .subtitle {
     font-family: Roboto, sans-serif;
     font-size: 11px;
-    margin-top: 15px;
+    margin-top: 30px;
     margin-bottom: 2px;
     /*transform: translate(-1.6%);*/
 }
@@ -58,6 +64,30 @@ body {
     cursor: help;
 }
 
+.c {
+    text-transform: uppercase;
+    margin-left:10px;
+    font-size: 8px;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 2px 5px;
+    border: 1px solid black;
+    border-radius: 3px;
+    cursor: help;
+}
+
+.d {
+    text-transform: uppercase;
+    margin-left:10px;
+    font-size: 8px;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 2px 5px;
+    border: 1px solid black;
+    border-radius: 3px;
+    opacity: 0.2;
+}
+
 .timeline {
     margin-left: auto;
     margin-right: auto;
@@ -68,13 +98,40 @@ body {
     font-size: 11px;
 }
 
-.sidebar1 {
-    left: 0;
+.labelText {
+    font-family: Roboto, sans-serif;
+    font-size: 13px;
+    text-transform: uppercase;
+    margin-left:10px;
+    font-size: 8px;
+    letter-spacing: 1px;
+    
 }
 
-.sidebar2 {
-    right: 0;
+.sidebar1{
+    position: absolute;
+    left: 0;
+    padding-left: 0px;
+    background-color: #EFE0E4;
+    
 }
+
+.sidebar2{
+   position: absolute;
+   right: 0;
+   padding-right: 0px;
+   background-color: #EFE0E4;
+}
+
+#overlay{
+    		display: none;
+    		position: fixed;
+    		top: 0px;
+    			/*padding: 20px;*/
+    			/*box-shadow: 0 0 5px;*/
+    		background-color: black;
+    		opacity: 0.90;
+    	    }
 
 .footer {
   position: fixed;
@@ -82,18 +139,24 @@ body {
   left: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
-  height: 60px;
+  height: 50px;
   background-color: #EFE0E4;
 }
 
 </style>
 <!--<svg width="960" height="100" class="svg_05" style="float:top"></svg>-->
-<div class="container">
+<div class="container nopadding">
   <div class="row">
-      <div class="col-md-12 col-xs-12">
-        <svg height="20"></svg>
+      <div class = "col-md-1 col-xs-1" id="sidebar1">
       </div>
-      <div class="col-md-12 col-xs-12">
+      <div class="col-md-10 col-xs-10">
+        <svg height="17"></svg>
+      </div>
+      <div class = "col-md-1 col-xs-1" id="sidebar2">
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-md-10 col-md-offset-1 col-xs-10 col-xs-offset-1">
           <div class="title">
               The International Life of A Broadway Musical
               <div class="col-md-10 col-md-offset-1 col-xs-10 col-xs-offset-1" id="description">
@@ -104,27 +167,28 @@ body {
       </div>
   </div>
    <div class="row">
-      <div class="col-md-12 col-xs-12 subtitle" id="subtitle">
+      <div class="col-md-10 col-md-offset-1 col-xs-10 col-xs-offset-1 subtitle" id="subtitle">
       </div>
   </div>
   <div class="row">
-    <div class = "col-md-1 col-xs-1" id="sidebar1"></div>
-    <div class="col-md-10 col-xs-10">
+    <!--<div class = "col-md-1 col-xs-1" id="sidebar1"></div>-->
+    <div class="col-md-12 col-xs-12"> <!--col-md-offset-1-->
             <div class="visualization" id="visualization">
               <!--<svg width="900" height="500" class="svg_01"></svg>
               <svg width="30" height="500" class="svg_03" style="float:left"></svg>
               <svg width="30" height="500" class="svg_04" style="float:right"></svg>-->
             </div>
     </div>
-    <div class = "col-md-1 col-xs-1" id="sidebar2"></div>
+    <!--<div class = "col-md-1 col-md-offset-col-xs-1" id="sidebar2"></div>-->
   </div>
   <footer class="footer" id="footer">
     <div class="container"></div>
   </footer>
 </div>  
+<div id='overlay' class='col-md-12 col-xs-12' style='height: 800px'></div>
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/bootstrap.min.css">
 <script>
 
 var margin = {
@@ -135,44 +199,41 @@ var margin = {
 };
 
 var height = 640;
-var width = 960;
-var newWidth = document.getElementById('visualization').offsetWidth;
+var width = document.getElementById("visualization").offsetWidth;
+var newHeight = window.innerHeight
 
-console.log(newWidth)
-
-// var svgLegend = d3.select("#footer")
-//             .append("svg")
-//             .attr("class", "legend")
-//             .attr("width", "100%")
-//             .attr("height", 30)
-//             .style("background-color", "#EFE0E4")
-//             .style("float", "left")
+var svgLegend = d3.select("#footer")
+            .append("svg")
+            .attr("class", "legend")
+            .attr("width", "100%")
+            .style("background-color", "#EFE0E4")
+  
             
 var svgSideL = d3.select("#sidebar1")
             .append("svg")
             .attr("class", "sidebar1")
-            .attr("width", "50%")
-            .attr("height", height)
+            .attr("width", 10)
+            .attr("height", window.innerHeight)
             .style("background-color", "#EFE0E4")
             
 var svgSideR = d3.select("#sidebar2")
             .append("svg")
             .attr("class", "sidebar2")
-            .attr("width", "50%")
-            .attr("height", height)
-            .style("background-color", "#EFE0E4")
+            .attr("width", 10)
+            .attr("height", window.innerHeight)
+//             .style("background-color", "#EFE0E4")
 
 var svg = d3.select("#visualization")
             .append("svg")
             .attr("class", "svg_01")
-            .attr("width", width) //vWidth + 100
-            .attr("height", height);
+            .attr("width", "100%") //vWidth + 100
+            .attr("height", newHeight-130);
             //.style("transform", "translate(0px," + (-height-120) +"px)");
 
 var svgInfo = d3.select("#visualization")
     .append("svg")
     .attr("width", 220)
-    .attr("height",600)
+    .attr("height",1200)
     .style('display','none')
     //.style("margin-left", margin.left + "px")
     //.style("margin-right", margin.right + "px")
@@ -181,12 +242,13 @@ var svgInfo = d3.select("#visualization")
 var svgTime = d3.select("#visualization")
     .append("svg")
     .attr("width", 720)
-    .attr("height",600)
+    .attr("height",1200)
     .style('display','none')
     //.style("margin-left", margin.left + "px")
     //.style("margin-right", margin.right + "px")
     .attr("class", "svg_02");
-    
+   
+  
 var graph;
 
 var color = d3.scaleOrdinal(d3.schemeCategory20);
@@ -194,7 +256,7 @@ var color = d3.scaleOrdinal(d3.schemeCategory20);
 var simulation = d3.forceSimulation()
     .force("link", d3.forceLink().id(function(d) { return d.id; }).distance(200))
     .force("charge", d3.forceManyBody())
-    .force("center", d3.forceCenter(width / 2, height / 2));
+    .force("center", d3.forceCenter(width/2, (newHeight-160)/2));
     
 //var dateScale = d3.scaleTime().domain([new Date("01-01"), new Date("12-31")]).range([0,600])
 
@@ -214,7 +276,11 @@ d3.json("showMatilda.json", function(error, _graph) {
       .selectAll("circle")
       .data(graph.nodes)
       .enter().append("circle")
-      .attr("r", 5)
+      .attr("r", function(d){
+        if (d.n<11) {
+          return 7
+        } else return 5.5
+      })
       .attr("fill", function(d) { return color(d.country); })
       .on("mouseover", fade(0.1))
       .on("mouseout", fade(1))
@@ -255,11 +321,20 @@ d3.json("showMatilda.json", function(error, _graph) {
   function clicked(d){
     
     d3.select('.svg_01').style('display','none');
-    d3.select('.sidebar1').style('display','none');
-    d3.select('.sidebar2').style('display','none');
+    d3.select('#sidebar1').style('display','none');
+    d3.select('#sidebar2').style('display','none');
     d3.select('.svg_03').style('display','inline');
     d3.select('.svg_02').style('display','inline');
-    d3.select('button').style('display','none');
+    
+    d3.select(".filter").style('display','none')
+    
+    var b1pt = d3.select("#subtitle")
+    .append("div")
+    .attr("class", "back");
+    
+    b1pt.html("<div title='....' class='c'>Back</div>")
+    .on("click", back)
+    
     
     var name = d.id
       //console.log(name)
@@ -293,7 +368,7 @@ d3.json("showMatilda.json", function(error, _graph) {
          if (i == 0) {
             return "translate(40," + 40 + ")"; } 
             else { 
-              count = count + final_band_arr[i-1].length*10 + 20
+              count = count + final_band_arr[i-1].length*9 + 20
               console.log(count)
               return "translate(40," + count + ")"
             }
@@ -317,7 +392,7 @@ d3.json("showMatilda.json", function(error, _graph) {
             .attr("x1", 40)  //<<== change your code here
             .attr("y1", 0)
             .attr("x2", 40)  //<<== and here
-            .attr("y2", function(d) { return d.length * 10})
+            .attr("y2", function(d) { return d.length * 9})
             .style("stroke-width", 1)
             .style("stroke", "black")
             .style("fill", "none");
@@ -331,14 +406,14 @@ d3.json("showMatilda.json", function(error, _graph) {
             .enter()
             .append('rect')
             .attr("width", 606.6666666)
-            .attr("height", 10)
+            .attr("height", 9)
             .style("fill", "#f3f3f3")
             .style("stroke", '#FFFFFF')
             .attr('rx', 5)
             .attr('ry', 5)
             .attr('transform', function(d, k){
               if (final_band_arr[i].length>1) {
-                return "translate(60," + (k * 10) + ")"; 
+                return "translate(60," + (k * 9) + ")"; 
             } else return "translate(60," + "0" + ")";})
           
           d3.select("." + name + "_" + d)
@@ -350,7 +425,7 @@ d3.json("showMatilda.json", function(error, _graph) {
             .attr('width',function(d){
               return ((new Date(d.end) - new Date(d.start))  /  (3600*24 * 600));
             })
-            .attr('height', 10)
+            .attr('height', 9)
               //console.log(d)
               //console.log(k)
               //if (final_band_arr[i].length>1) {
@@ -360,7 +435,7 @@ d3.json("showMatilda.json", function(error, _graph) {
             //})
             .attr('transform', function(d, k){
               if (final_band_arr[i].length>1) {
-                return "translate(60," + (k * 10) + ")"; 
+                return "translate(60," + (k * 9) + ")"; 
             } else return "translate(60," + "0" + ")";})
             .attr('x',function(d){
               // return dateScale(new Date(d.start))
@@ -373,8 +448,9 @@ d3.json("showMatilda.json", function(error, _graph) {
                 return "#5A7CC2"
               } else if (d.version == "Local") {
                 return "#ACBDE0"
+              } else if (d.version == "West End") {
+                return "#EFE0E4"
               }
-              
             })
             .style('stroke', '#FFFFFF')
             .attr("class", "rect")
@@ -408,9 +484,24 @@ d3.json("showMatilda.json", function(error, _graph) {
           .style("fill", "black")
           .attr("text-anchor", "middle");
           //.style("text-transform", "uppercase");
-  
+
+    
+    function back(d) {
+      b1pt.style("display", "none");
+      console.log("Ah");
+      bOpt.style('display', 'inline')
+      d3.select('.svg_01').style('display','inline');
+      d3.select('.svg_03')
+        .style('display','none')
+        .selectAll("*").remove();;
+      d3.select('.svg_02').style('display','none').selectAll("*").remove();;
+      d3.select('#sidebar1').style('display','inline');
+      d3.select('#sidebar2').style('display','inline');
+      
+    }
           
   }
+  
         
   node.append("title")
       .text(function(d) { return d.id; });
@@ -450,14 +541,20 @@ d3.json("showMatilda.json", function(error, _graph) {
         });
   }
   
-  d3.select("#subtitle").style("padding-left", margin.left + "px").style("padding-right", margin.right + "px");
-  var bOpt = d3.select("#subtitle").append("div").attr("class", "subtitle");
-  bOpt.html("<div title='....' class='b' id ='Adapt'>Source Material</div><div title='...' class='b' id='Genre'>Type</div><div title='...' class='b' id= 'Acclaim'>Tony Awards</div><div title='...' class='b' id='Gender'>Lead Cast</div>");
-
-  d3.select('#Adapt')
-    .on("click", clusterData);
+  d3.select("#subtitle")
+    .style("padding-left", margin.left + "px")
+    .style("padding-right", margin.right + "px");
+    
+  var bOpt = d3.select("#subtitle")
+    .append("div")
+    .attr("class", "filter");
   
-  function clusterData() {
+  bOpt.html("<div title='....' class='b' id ='Adapt'>Source Material</div><div title='...' class='b' id='Genre'>Type</div><div title='...' class='b' id= 'Tonys'>Tony Awards</div><div title='....' class='b' id ='Olivier'>Oliver Awards</div><div title='...' class='b' id='Gender'>Lead Cast</div><div title='...' class='d' id='reset'>Reset</div>");
+
+  d3.select('#Tonys')
+    .on("click", clusterbyTonys);
+  
+  function clusterbyTonys() {
       link
           .attr("x1", function(d) { return d.source.x; })
           .attr("y1", function(d) { return d.source.y; })
@@ -481,7 +578,7 @@ d3.json("showMatilda.json", function(error, _graph) {
             return d.x;
             }
             else 
-            if(d.group == "1") {
+            if(d.tony == "1") {
               d.x -= k * 200;
             //return d.x -= i & 1 ? k : -k;
             } 
@@ -498,7 +595,67 @@ d3.json("showMatilda.json", function(error, _graph) {
             //return d.y += i & 1 ? k : -k
             return d.y;
           });
+      
+      d3.selectAll(".b")
+        .style("opacity", 0.1)
+      
+      d3.select(".d")
+        .style("opacity", 1)
+        
+      
+      var labelL = d3.select(".sidebar1").append("g")
+            
+      labelL.append("circle")
+            .attr("cx", 5)
+            .attr("cy", window.innerHeight/2 + 50)
+            .attr("r", 4)
+            .attr("class", "labelCircle")
+            .style("fill", "none")
+            .style("stroke", "white")
+            .style("stroke-width", 2)
+                
+      svg.append("text")
+          .attr("x",5)
+          .attr("y", window.innerHeight/2 - 75)
+          .text("Tony Award-winning")
+          .attr("class", "labelText")
+          .style("fill", "#EFE0E4");
+      
+      var labelR = d3.select(".sidebar2").append("g")
+            
+      labelR.append("circle")
+            .attr("cx", 5)
+            .attr("cy", window.innerHeight/2 + 50)
+            .attr("r", 4)
+            .attr("class", "labelCircle")
+            .style("fill", "none")
+            .style("stroke", "white")
+            .style("stroke-width", 2)
+                
+      svg.append("text")
+          .attr("x",width-85)
+          .attr("y", window.innerHeight/2 - 75)
+          .text("No Tony Awards")
+          .attr("class", "labelText")
+          .style("fill", "#EFE0E4")
+          .attr("text-anchor", "right");
       }
+      
+    d3.select('#reset')
+    .on("click", reset);
+    
+    function reset(){
+      d3.selectAll(".b")
+        .style("opacity", 1)
+      
+      d3.select(".d")
+        .style("opacity", 0.1)
+      
+      d3.selectAll(".labelCircle").remove()
+      d3.selectAll(".labelText").remove()
+      
+    }
+  
 });
 
 // function dragstarted(d) {
