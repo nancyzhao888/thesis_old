@@ -156,19 +156,19 @@ body {
 <!--<svg width="960" height="100" class="svg_05" style="float:top"></svg>-->
 <div class="container nopadding">
   <div class="row">
-      <div class = "col-md-1 col-xs-1" id="sidebar1">
+      <div class = "col-lg-1 col-md-1 col-xs-1" id="sidebar1">
       </div>
-      <div class="col-md-10 col-xs-10">
+      <div class="col-lg-10 col-md-10 col-xs-10">
         <svg height="17"></svg>
       </div>
-      <div class = "col-md-1 col-xs-1" id="sidebar2">
+      <div class = "col-lg-1 col-md-1 col-xs-1" id="sidebar2">
       </div>
   </div>
   <div class="row">
-      <div class="col-md-10 col-md-offset-1 col-xs-10 col-xs-offset-1">
+      <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-10 col-xs-offset-1">
           <div class="title">
               The International Afterlife of Broadway Musicals
-              <div class="col-md-10 col-md-offset-1 col-xs-10 col-xs-offset-1" id="description">
+              <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-10 col-xs-offset-1" id="description">
                 Follow Broadway musical titles through their lifetimes, their Broadway performances, and international touring across continents to explore the dynamics of cultural transmission and the motivation behind this global distribution.
               <!--Show Subtitle/Description-->
               </div>
@@ -176,12 +176,12 @@ body {
       </div>
   </div>
    <div class="row">
-      <div class="col-md-10 col-md-offset-1 col-xs-10 col-xs-offset-1 subtitle" id="subtitle">
+      <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-xs-10 col-xs-offset-1 subtitle" id="subtitle">
       </div>
   </div>
   <div class="row">
     <!--<div class = "col-md-1 col-xs-1" id="sidebar1"></div>-->
-    <div class="col-md-12 col-xs-12"> <!--col-md-offset-1-->
+    <div class="col-lg-12 col-md-12 col-xs-12"> <!--col-md-offset-1-->
             <div class="visualization" id="visualization">
               <!--<svg width="900" height="500" class="svg_01"></svg>
               <svg width="30" height="500" class="svg_03" style="float:left"></svg>
@@ -197,7 +197,7 @@ body {
     </div>
   </footer>
 </div>  
-<div id='overlay' class='col-md-12 col-xs-12' style='height: 800px'></div>
+<div id='overlay' class='col-lg-12 col-md-12 col-xs-12' style='height: 100%'></div>
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -210,9 +210,11 @@ var margin = {
     left: 100
 };
   
-var height = 640;
+//var height = 640;
 var width = document.getElementById("visualization").offsetWidth;
 var newHeight = window.innerHeight
+
+console.log(newHeight); 
 
 var svgLegend = d3.select("#footer")
             .append("svg")
@@ -244,8 +246,8 @@ var svg = d3.select("#visualization")
 
 var svgInfo = d3.select("#visualization")
     .append("svg")
-    .attr("width", 220)
-    .attr("height",1200)
+    .attr("width", "20%")
+    .attr("height", window.innerHeight + 100)
     .style('display','none')
     //.style("margin-left", margin.left + "px")
     //.style("margin-right", margin.right + "px")
@@ -253,8 +255,8 @@ var svgInfo = d3.select("#visualization")
     
 var svgTime = d3.select("#visualization")
     .append("svg")
-    .attr("width", 720)
-    .attr("height",1200)
+    .attr("width", "80%")
+    .attr("height",window.innerHeight + 100)
     .style('display','none')
     //.style("margin-left", margin.left + "px")
     //.style("margin-right", margin.right + "px")
