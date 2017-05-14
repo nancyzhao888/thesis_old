@@ -64,6 +64,7 @@ body {
 }
 .c {
     text-transform: uppercase;
+    margin-top:3px;
     margin-left:10px;
     font-size: 8px;
     letter-spacing: 1px;
@@ -234,6 +235,7 @@ var simulation = d3.forceSimulation()
     .force("link", d3.forceLink().id(function(d) { return d.id; }).distance(200))
     .force("charge", d3.forceManyBody())
     .force("center", d3.forceCenter(width/2, (newHeight-160)/2));
+
 function simulation_init(n,l,link,node){
         
 
@@ -290,6 +292,7 @@ var drawNodesLinks = function(error, _graph){
         .data(graph.links)
         .enter().append("line")
         .attr("stroke-width", function(d) { return Math.sqrt(d.value); });
+    
     var node = svg.append("g")
         .attr("class", "nodes")
         .selectAll("circle")
@@ -306,7 +309,9 @@ var drawNodesLinks = function(error, _graph){
         .on("mouseover", fade(0.1))
         .on("mouseout", fade(1))
         .on('click', clicked);
-      
+    
+    simulation_init(graph.nodes,graph.links,link,node)
+    
     function neighboring(a, b) {
       return graph.links.some(function(d) {
         return (d.source === a && d.target === b)
@@ -349,7 +354,11 @@ var drawNodesLinks = function(error, _graph){
       d3.select('.svg_02').style('display','inline');
       d3.select('#legend1').style('display','none');
       d3.select('#legend2').style('display','inline');
-      d3.select(".filter").style('display','none')
+      d3.selectAll(".a").style('display','none');
+      d3.selectAll(".b").style('display','none');
+      d3.selectAll(".d").style('display','none');
+      // d3.selectAll(".b")
+      //     .style("opacity", 0.1)
       
       var b1pt = d3.select("#subtitle")
       .append("div")
@@ -502,7 +511,7 @@ var drawNodesLinks = function(error, _graph){
             .attr("x", 130)
             .attr("y", 140)
             .text(name)
-            .style("font-family", "Roboto")
+            .style("font-family", "Roboto, sans-serif")
             .style("font-size", "15px")
             .style("fill", "black")
             .attr("text-anchor", "middle");
@@ -510,8 +519,9 @@ var drawNodesLinks = function(error, _graph){
       
       function back(d) {
         b1pt.style("display", "none");
-        console.log("Ah");
-        bOpt.style('display', 'inline')
+        d3.selectAll(".a").style('display','inline');
+        d3.selectAll(".b").style('display','inline');
+        d3.selectAll(".d").style('display','inline');
         d3.select('.svg_01').style('display','inline');
         d3.select('.svg_03')
           .style('display','none')
@@ -529,7 +539,6 @@ var drawNodesLinks = function(error, _graph){
     node.append("title")
         .text(function(d) { return d.id; });
            
-   
     
     d3.select("#subtitle")
       .style("padding-left", margin.left + "px")
@@ -538,8 +547,6 @@ var drawNodesLinks = function(error, _graph){
     var bOpt = d3.select("#subtitle")
       .append("div")
       .attr("class", "filter");
-   
-   simulation_init(graph.nodes,graph.links,link,node)
     
     bOpt.html("<div class='a' id ='Group'>Group by</div><div title='....' class='b' id ='Adapt'>Source Material</div><div title='...' class='b' id='Genre'>Type</div><div title='...' class='b' id= 'Tonys'>Tony Awards</div><div title='....' class='b' id ='Olivier'>Oliver Awards</div><div title='...' class='b' id='Gender'>Lead Cast</div><div title='...' class='d' id='reset'>Reset</div>");
     
@@ -553,14 +560,7 @@ var drawNodesLinks = function(error, _graph){
             .attr("y1", function(d) { return d.source.y; })
             .attr("x2", function(d) { return d.target.x; })
             .attr("y2", function(d) { return d.target.y; });
-            
-        var k = 10 * simulation.alpha();
-        //   graph.nodes.forEach(function(o, i) {
-        //     o.y += i & 1 ? k : -k;
-        //     o.x += i & 2 ? k : -k;
-        //     // o.x = o.n == 1 ? width/2-k : width/2+k;
-        //     // o.y = o.n == 1 ? height/2-k : height/2+k;
-        //   });
+      
     
         node
             .attr("cx", function(d) { 
@@ -572,7 +572,7 @@ var drawNodesLinks = function(error, _graph){
               else if(d.tony == "1") {
                 d.x -= 2 * 200;
               }else {
-                d.x += k * 200;
+                d.x += 2 * 200;
               }
               return d.x;
             })
@@ -637,10 +637,6 @@ var drawNodesLinks = function(error, _graph){
         
         d3.select('#reset')
         .on("click", function(){
-          d3.selectAll(".b")
-            .style("opacity", 1)
-          d3.select(".d")
-            .style("opacity", 0.1)
           
           d3.selectAll(".labelCircle").remove();
           d3.selectAll(".labelText").remove();
