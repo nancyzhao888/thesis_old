@@ -1,8 +1,28 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <style>
+@font-face {
+    font-family: MouseDeco;
+    src: url(css/Mouse_Deco.ttf);
+}
+
+@font-face {
+    font-family: Metropolis;
+    src: url(css/Metropolis.otf);
+}
+
 body {
     text-align: center;
+}
+
+#one{
+  background-color: #11141B;
+}
+
+.intro{
+  font-family: MouseDeco;
+  font-size: 18px;
+  color: white;
 }
 .container.nopadding{
   padding-left: 0;
@@ -24,10 +44,17 @@ body {
     display: inline-block;
     height: 50px;
     margin-top: 1rem;
-    font-family: Roboto, sans-serif;
-    font-size: 22px;
+    font-family: MouseDeco;
+    font-size: 27px;
     transform: translate(-1.6%);
+    color: white;
 }
+
+#title {
+  width: 40%;
+  margin-top: 10%;
+}
+
 #description {
     font-family: Roboto, sans-serif;
     font-size: 10px;
@@ -35,11 +62,12 @@ body {
     /*margin-left: 30px;
     margin-right: 30px;*/
     text-align: justify;
+    color: white;
 }
 .subtitle {
     font-family: Roboto, sans-serif;
     font-size: 11px;
-    margin-top: 30px;
+    margin-top: 50px;
     margin-bottom: 2px;
     /*transform: translate(-1.6%);*/
 }
@@ -50,6 +78,7 @@ body {
     letter-spacing: 1px;
     display: inline-block;
     padding: 2px 5px;
+    color: #DEAD27;
 }
 .b {
     text-transform: uppercase;
@@ -58,9 +87,10 @@ body {
     letter-spacing: 1px;
     display: inline-block;
     padding: 2px 5px;
-    border: 1px solid black;
+    border: 1px solid #DEAD27;
     border-radius: 3px;
     cursor: help;
+    color: #DEAD27;
 }
 .c {
     text-transform: uppercase;
@@ -70,9 +100,10 @@ body {
     letter-spacing: 1px;
     display: inline-block;
     padding: 2px 5px;
-    border: 1px solid black;
+    border: 1px solid #DEAD27;
     border-radius: 3px;
     cursor: help;
+    color: #DEAD27; 
 }
 .d {
     text-transform: uppercase;
@@ -81,9 +112,10 @@ body {
     letter-spacing: 1px;
     display: inline-block;
     padding: 2px 5px;
-    border: 1px solid black;
+    border: 1px solid #DEAD27;
     border-radius: 3px;
     opacity: 0.2;
+    color: #DEAD27;
 }
 .timeline {
     margin-left: auto;
@@ -95,10 +127,9 @@ body {
 }
 .labelText {
     font-family: Roboto, sans-serif;
-    font-size: 13px;
     text-transform: uppercase;
     margin-left:10px;
-    font-size: 8px;
+    font-size: 11px;
     letter-spacing: 1px;
     
 }
@@ -106,24 +137,22 @@ body {
     position: absolute;
     left: 0;
     padding-left: 0px;
-    background-color: #EFE0E4;
+    background-color: #DEAD27;
     
 }
 .sidebar2{
    position: absolute;
    right: 0;
    padding-right: 0px;
-   background-color: #EFE0E4;
+   background-color: #DEAD27;
 }
 #overlay{
-    		
-    		position: fixed;
-    		top: 0px;
-    			/*padding: 20px;*/
-    			/*box-shadow: 0 0 5px;*/
-    		background-image: url(images/background.png);
-    		opacity: 1;
-    	    }
+		position: fixed;
+		top: 0px;
+		background: linear-gradient(to bottom right,rgba(0,47,75,0.6), rgba(220,66,37,0.6)), url("images/background1.png") no-repeat center; 
+		background-size: cover;
+		opacity: 1;
+}
 .footer {
   position: fixed;
   bottom: 0;
@@ -131,9 +160,12 @@ body {
   width: 100%;
   /* Set the fixed height of the footer here */
   height: 50px;
-  background-color: #EFE0E4;
+  background-color: #DEAD27;/*#812D1D;*/
 }
+
+
 </style>
+<section id=one>
 <div class="container nopadding">
   <div class="row">
       <div class = "col-lg-1 col-md-1 col-xs-1" id="sidebar1">
@@ -170,20 +202,28 @@ body {
       <img id="legend2" src="images/legend2.png" style='width: 70%' display="none"></img>
     </div>
   </footer>
-</div>  
-<div id='overlay' class='col-lg-12 col-md-12 col-xs-12' style='height: 100%'></div>
+</div>
+</section>
+<div id='overlay' class='col-lg-12 col-md-12 col-xs-12' style='height: 100%'>
+    <img id="title" src="images/title.png"></img>
+    <p></p>
+    <p class="intro"> 40 theatres, 12 blocks, 1 city......</p>
+    <p class="intro"> Does the life of a Broadway musical end here?</p>
+</div>
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 <link rel="stylesheet" href="css/bootstrap.min.css">
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 
 <script>
+//EFE0E4
 var margin = {
     top: 20,
     right: 100,
     bottom: 100,
     left: 100
 };
-  
+
 //var height = 640;
 var width = document.getElementById("visualization").offsetWidth;
 var newHeight = window.innerHeight;
@@ -197,13 +237,13 @@ var svgSideL = d3.select("#sidebar1")
             .append("svg")
             .attr("class", "sidebar1")
             .attr("width", 10)
-            .attr("height", window.innerHeight)
+            .attr("height", 130)
             
 var svgSideR = d3.select("#sidebar2")
             .append("svg")
             .attr("class", "sidebar2")
             .attr("width", 10)
-            .attr("height", window.innerHeight)
+            .attr("height", 130)
             
 var svg = d3.select("#visualization")
             .append("svg")
@@ -230,9 +270,12 @@ var svgTime = d3.select("#visualization")
     .attr("class", "svg_02");
   
 var graph, graphOrig;
-var color = d3.scaleOrdinal(d3.schemeCategory20);
+
+var color= d3.scaleOrdinal()
+            .range(['#D4AF37','#601205', '#AB0021','#CD2521','#EF6036', '#FDA458','#FEC672','#FFEDA0', '#E9F6E1', '#C1E4EF', '#8BC1DD','#71A8D1', '#4C7AB9', '#3E5EAC','#313699']);
+
 var simulation = d3.forceSimulation()
-    .force("link", d3.forceLink().id(function(d) { return d.id; }).distance(200))
+    .force("link", d3.forceLink().id(function(d) { return d.id; }).distance(210))
     .force("charge", d3.forceManyBody())
     .force("center", d3.forceCenter(width/2, (newHeight-160)/2));
 
@@ -282,7 +325,7 @@ var drawNodesLinks = function(error, _graph){
       graph = JSON.parse(JSON.stringify(graphOrig));
     
     simulation = d3.forceSimulation()
-      .force("link", d3.forceLink().id(function(d) { return d.id; }).distance(200))
+      .force("link", d3.forceLink().id(function(d) { return d.id; }).distance(210))
       .force("charge", d3.forceManyBody())
       .force("center", d3.forceCenter(width/2, (newHeight-160)/2));
       
@@ -348,8 +391,6 @@ var drawNodesLinks = function(error, _graph){
     function clicked(d){
       
       d3.select('.svg_01').style('display','none');
-      d3.select('#sidebar1').style('display','none');
-      d3.select('#sidebar2').style('display','none');
       d3.select('.svg_03').style('display','inline');
       d3.select('.svg_02').style('display','inline');
       d3.select('#legend1').style('display','none');
@@ -418,7 +459,8 @@ var drawNodesLinks = function(error, _graph){
               .text(function(d, i) { 
                 //console.log(d[0].year)
                 return d[0].year; })
-              .attr('class', 'yearLabel');
+              .attr('class', 'yearLabel')
+              .style('fill', 'white');
               
           band.append("line")
               .attr("x1", 40)  //<<== change your code here
@@ -426,7 +468,7 @@ var drawNodesLinks = function(error, _graph){
               .attr("x2", 40)  //<<== and here
               .attr("y2", function(d) { return d.length * 9})
               .style("stroke-width", 1)
-              .style("stroke", "black")
+              .style("stroke", "white")
               .style("fill", "none");
             
           obj_keys.forEach(function(d,i){
@@ -439,8 +481,8 @@ var drawNodesLinks = function(error, _graph){
               .append('rect')
               .attr("width", 606.6666666)
               .attr("height", 9)
-              .style("fill", "#f3f3f3")
-              .style("stroke", '#FFFFFF')
+              //.style("fill", "#3C4F5B")
+              //.style("stroke", '#FFFFFF')
               .attr('rx', 5)
               .attr('ry', 5)
               .attr('transform', function(d, k){
@@ -475,13 +517,13 @@ var drawNodesLinks = function(error, _graph){
               })
               .style('fill', function(d){
                 if (d.version == "Broadway") {
-                  return "#CC99A5"
+                  return "#E5BD52"
                 } else if (d.version == "English") {
-                  return "#5A7CC2"
+                  return "#812D1D"
                 } else if (d.version == "Local") {
-                  return "#ACBDE0"
+                  return "#CBA9A2"
                 } else if (d.version == "West End") {
-                  return "#EFE0E4"
+                  return "#EED591"
                 }
               })
               .style('stroke', '#FFFFFF')
@@ -498,7 +540,7 @@ var drawNodesLinks = function(error, _graph){
           .attr("cx", 130)
           .attr("cy", 80)
           .attr("r", 34)
-          .style("fill", "#CC99A5")
+          .style("fill", "#DEAD27")
           
         show.append('image')
           .attr("xlink:href", ("images/"+ name +".png"))
@@ -513,7 +555,7 @@ var drawNodesLinks = function(error, _graph){
             .text(name)
             .style("font-family", "Roboto, sans-serif")
             .style("font-size", "15px")
-            .style("fill", "black")
+            .style("fill", "white")
             .attr("text-anchor", "middle");
             //.style("text-transform", "uppercase");
       
@@ -527,8 +569,6 @@ var drawNodesLinks = function(error, _graph){
           .style('display','none')
           .selectAll("*").remove();;
         d3.select('.svg_02').style('display','none').selectAll("*").remove();;
-        d3.select('#sidebar1').style('display','inline');
-        d3.select('#sidebar2').style('display','inline');
         d3.select('#legend1').style('display','inline');
         d3.select('#legend2').style('display','none');
         
@@ -570,9 +610,9 @@ var drawNodesLinks = function(error, _graph){
               //return d.x = x;
               }
               else if(d.tony == "1") {
-                d.x -= 2 * 200;
+                d.x -= 2 * 210;
               }else {
-                d.x += 2 * 200;
+                d.x += 2 * 210;
               }
               return d.x;
             })
@@ -611,13 +651,19 @@ var drawNodesLinks = function(error, _graph){
             .attr("y", window.innerHeight/2 - 75)
             .text("Tony Award-winning")
             .attr("class", "labelText")
-            .style("fill", "#CC99A5");
+            .style("fill", "#DEAD27")
+            .style("text-decoration","underline");
         
         var labelR = d3.select(".sidebar2").append("g")
               
-        labelR.append("circle")
+        labelR.selectAll("circle")
+              .append("circle")
               .attr("cx", 5)
-              .attr("cy", window.innerHeight/2 + 50)
+              .attr("cy", function() {
+                for (i=0; i<75; i++) {
+                  return i+10
+                }
+              })
               .attr("r", 4)
               .attr("class", "labelCircle")
               .style("fill", "none")
@@ -625,11 +671,12 @@ var drawNodesLinks = function(error, _graph){
               .style("stroke-width", 2)
                   
         svg.append("text")
-            .attr("x",width-85)
+            .attr("x",width-115)
             .attr("y", window.innerHeight/2 - 75)
             .text("No Tony Awards")
             .attr("class", "labelText")
-            .style("fill", "#CC99A5")
+            .style("fill", "#DEAD27")
+            .style("text-decoration","underline")
             .attr("text-anchor", "right");
         
         simulation_init(graph.nodes,graph.links,link,node)
